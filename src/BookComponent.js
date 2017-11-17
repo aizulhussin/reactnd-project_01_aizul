@@ -1,34 +1,34 @@
 import React from 'react';
+import BookShelfChangerComponent from './BookShelfChangerComponent.js'
 
 
 class BookComponent extends React.Component {
 
 
-    constructor(props) {
-        super(props);
-        this.handleUpdateShelf = this.handleUpdateShelf.bind(this);
-
-    }
-
-
-    handleUpdateShelf(event) {
-
-        let o = JSON.parse(event.target.value);
-        let shelf = { shelf: o.shelf };
-        this.props.updateShelf(o.book, shelf);
-    }
-
-    matchBook(bookId) {
-        
-        let filtered = this.props.mybooks.filter((book) => book.id === bookId);
-
-        if (filtered.length > 0) {
-            let book = filtered[0];
-            return `{"book":{"id":"${book.id}"},"shelf":"${book.shelf}"}`
-        } else {
-            return "none"
-        }
-    }
+    /*  constructor(props) {
+          super(props);
+          this.handleUpdateShelf = this.handleUpdateShelf.bind(this);
+  
+      }
+  
+  
+      handleUpdateShelf(event,book) {
+          console.log("handleUpdateShelf:",event.target.value)
+      
+          this.props.updateShelf(book,event.target.value);
+      }
+  
+      matchBook(bookId) {
+          
+          let filtered = this.props.mybooks.filter((book) => book.id === bookId);
+  
+          if (filtered.length > 0) {
+              let book = filtered[0];
+              return book.shelf
+          } else {
+              return "none"
+          }
+      }*/
 
 
     render() {
@@ -47,17 +47,12 @@ class BookComponent extends React.Component {
                                             width: 128, height: 193,
                                             backgroundImage: `url(${book.imageLinks.thumbnail})`
                                         }}></div>
-                                    <div className="book-shelf-changer">
-                                        <select
-                                            defaultValue={this.matchBook(book.id)}
-                                            onChange={this.handleUpdateShelf}>
-                                            <option value="none" disabled>Move to...</option>
-                                            <option value={`{"book":{"id":"${book.id}"},"shelf":"currentlyReading"}`}>Currently Reading</option>
-                                            <option value={`{"book":{"id":"${book.id}"},"shelf":"wantToRead"}`}>Want to Read</option>
-                                            <option value={`{"book":{"id":"${book.id}"},"shelf":"read"}`}>Read</option>
-                                            <option value="none">None</option>
-                                        </select>
-                                    </div>
+                                    <BookShelfChangerComponent
+                                        book={book}
+                                        mybooks={this.props.mybooks}
+                                        updateShelf={this.props.updateShelf}
+                                    />
+
                                 </div>
                                 <div className="book-title">{book.title}</div>
                                 <div className="book-authors">{book.authors !== undefined && book.authors.join()}</div>

@@ -30,7 +30,7 @@ class BooksApp extends React.Component {
 
 
   updateShelf = (book, shelf) => {
-
+    
     BooksAPI.update(book, shelf).then(result => {
       this.getBooks();
     });

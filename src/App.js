@@ -13,7 +13,7 @@ class BooksApp extends React.Component {
 
     this.state = {
       books: [],
-      searchResult:[]
+      searchResult: []
     }
   }
 
@@ -30,16 +30,20 @@ class BooksApp extends React.Component {
 
 
   updateShelf = (book, shelf) => {
-    
+
     BooksAPI.update(book, shelf).then(result => {
       this.getBooks();
     });
   }
 
-  searchBooks = (query,maxResult) =>{
-    
-    BooksAPI.search(query,maxResult).then(result =>{
-      this.setState({searchResult:result})
+  emptySearchResult = () => {
+    this.setState({ searchResult: [] })
+  }
+
+  searchBooks = (query, maxResult) => {
+
+    BooksAPI.search(query, maxResult).then(result => {
+      this.setState({ searchResult: result })
     });
   }
 
@@ -61,6 +65,7 @@ class BooksApp extends React.Component {
               getBooks={this.getBooks}
               updateShelf={this.updateShelf}
               searchBooks={this.searchBooks}
+              emptySearchResult={this.emptySearchResult}
               books={this.state.books}
               searchResult={this.state.searchResult}
             />

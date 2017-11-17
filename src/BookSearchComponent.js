@@ -8,32 +8,38 @@ class BookSearchComponent extends React.Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            searchInput: ''
-        }
         this.handleSearchInput = this.handleSearchInput.bind(this);
     }
 
+    handleSearchInput = (query) => {
 
-    handleSearchInput(event) {
+        query = query.trim();
 
-        let query = event.target.value;
-        this.props.searchBooks(query, 20);
-
+        if (query.length > 0) {
+            this.props.searchBooks(query, 20);
+        } else {
+            this.props.emptySearchResult();
+        }
     }
 
-    
+
+
     render() {
 
-        let result = this.props.searchResult;
+        let result = [];
+
+        if (this.props.searchResult.length > 0) {
+            result = this.props.searchResult;
+        }
 
         return (
             <div className="search-books">
                 <div className="search-books-bar">
                     <Link className="close-search" to='/'>Close</Link>
                     <div className="search-books-input-wrapper">
-                        <input type="text" onChange={this.handleSearchInput} placeholder="Search by title or author" />
+                        <input type="text"
+                            onChange={(event) => this.handleSearchInput(event.target.value)}
+                            placeholder="Search by title or author" />
                     </div>
                 </div>
                 <BookComponent

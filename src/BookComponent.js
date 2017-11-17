@@ -5,30 +5,6 @@ import BookShelfChangerComponent from './BookShelfChangerComponent.js'
 class BookComponent extends React.Component {
 
 
-    /*  constructor(props) {
-          super(props);
-          this.handleUpdateShelf = this.handleUpdateShelf.bind(this);
-  
-      }
-  
-  
-      handleUpdateShelf(event,book) {
-          console.log("handleUpdateShelf:",event.target.value)
-      
-          this.props.updateShelf(book,event.target.value);
-      }
-  
-      matchBook(bookId) {
-          
-          let filtered = this.props.mybooks.filter((book) => book.id === bookId);
-  
-          if (filtered.length > 0) {
-              let book = filtered[0];
-              return book.shelf
-          } else {
-              return "none"
-          }
-      }*/
 
 
     render() {
